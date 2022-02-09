@@ -1,5 +1,8 @@
 // Bank Insert queries
 
+create database bank_app;
+use bank_app;
+
 INSERT INTO `bank_app`.`bank`
 (
 `branch`,
