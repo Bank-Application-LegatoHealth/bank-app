@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.legato.utility.TransactionType;
 
@@ -32,10 +33,8 @@ public class TransactionDetails {
 	
 	@Enumerated(EnumType.STRING)
 	private TransactionType transactionType;
-	
 	private Double amount;
-	
-	@CreationTimestamp
+    @UpdateTimestamp
 	private Timestamp transactionDateTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
