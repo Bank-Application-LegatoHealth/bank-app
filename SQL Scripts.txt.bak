@@ -1,21 +1,10 @@
-// Bank Insert queries
 
+====================================================================================
 create database bank_app;
 use bank_app;
 
-INSERT INTO `bank_app`.`bank`
-(
-`branch`,
-`ifsc`,
-`name`,
-`no_of_customers`)
-VALUES
-(
-'Hinjewadi Phase 1',
-'ICIC0000570',
-'ICICI Bank Ltd',
-10000
-);
+
+====================================================================================
 
 INSERT INTO `bank_app`.`bank`
 (
@@ -24,50 +13,107 @@ INSERT INTO `bank_app`.`bank`
 `name`,
 `no_of_customers`)
 VALUES
-(
-'Hinjewadi Phase 2',
-'ICIC0000572',
-'ICICI Bank Ltd',
-10500
-);
+('Hinjewadi Phase 1','ICIC0000570','ICICI Bank Ltd',10000),
+('Hinjewadi Phase 2','ICIC0000572','ICICI Bank Ltd',10500),
+('Sarjapur road','SBIN0000110','State Bank Of India',100200),
+('Indirapuram','AXIS000012','Axis Bank',13200),
+('Koramangala','SCIN1100421','Standard Chartered Bank',20000);
 
-INSERT INTO `bank_app`.`bank`
-(
-`branch`,
-`ifsc`,
-`name`,
-`no_of_customers`)
+====================================================================================
+INSERT INTO `bank_app`.`customer`
+(`cust_id`,`age`,
+`cust_name`,
+`cust_password`,
+`bank_id`)
 VALUES
-(
-'Sarjapur road',
-'SBIN0000110',
-'State Bank Of India',
-100200
-);
+(1000501,28,'Darran winsten faraies','Darran@1234',1),
+(1000502,26,'Swathi Jain','Swathi@1234',2),
+(1000503,52,'Shubham','Shubham@1234',3),
+(1000504,35,'Karun nayar','Sarun@1234',4),
+(1000505,26,'Rupesh','Rupesh@1234',1),
+(1000506,18,'Praveen Kumar','Praveen@1234',1),
+(1000507,43,'Seema Rajashekar','Seema@1234',2),
+(1000508,21,'Tiwari','Tiwari@1234',3),
+(1000509,26,'Pallavi Desai','Pallavi@1234',4),
+(10005010,31,'Kishor Kumar','Kishor@1234',1);
+====================================================================================
+INSERT INTO `bank_app`.`account`
+(`account_num`,
+`acc_type`,
+`available_balance`,
+`created_date_time`,
+`ifsc`,
+`minimum_balance`,
+`transaction_password`,
+`transfer_limit`,
+`cust_id`)
+VALUES
+(2001,'SALARY',2531516.10,CURRENT_TIMESTAMP,'ICIC0000570',1000,'Darran@1234',200000,1000501),
+(2002,'CURRENT',100004.10,CURRENT_TIMESTAMP,'ICIC0000572',1000,'Swathi@1234',100000,1000502),
+(3001,'SAVINGS',29918,CURRENT_TIMESTAMP,'SBIN0000110',1000,'Shubham@1234',10000,1000503),
+(5342,'SALARY',3027281,CURRENT_TIMESTAMP,'AXIS000012',1000,'Sarun@1234',200000,1000504),
+(2524,'CURRENT',2331.40,CURRENT_TIMESTAMP,'ICIC0000570',1000,'Rupesh@1234',100000,1000505),
+(3432,'SAVINGS',323323.1,CURRENT_TIMESTAMP,'ICIC0000570',1000,'Praveen@1234',10000,1000506),
+(5472,'CURRENT',53532.23,CURRENT_TIMESTAMP,'ICIC0000572',1000,'Seema@1234',100000,1000507),
+(3632,'SALARY',323441.45,CURRENT_TIMESTAMP,'SBIN0000110',1000,'Tiwari@1234',200000,1000508),
+(3722,'CURRENT',244324,CURRENT_TIMESTAMP,'AXIS000012',1000,'Pallavi@1234',100000,1000509),
+(2636,'SAVINGS',1211,CURRENT_TIMESTAMP,'ICIC0000570',1000,'Kishor@1234',10000,10005010);
 
-INSERT INTO `bank_app`.`bank`
+
+====================================================================================
+
+INSERT INTO `bank_app`.`address`
 (
-`branch`,
-`ifsc`,
-`name`,
-`no_of_customers`)
+`city`,
+`state`,
+`pin`,
+`street_name`,
+`cust_id`)
 VALUES
-(
-'Indirapuram',
-'AXIS000012',
-'Axis Bank',
-13200
-);
-INSERT INTO `bank_app`.`bank`
-(
-`branch`,
-`ifsc`,
-`name`,
-`no_of_customers`)
+('Aradhana Bhawan Azadpur','Delhi',110033,'Shiv Shakti road',1000501),
+('Mumbai','Maharastra',400602,'Bakti Mandir Rd',1000502),
+('Bangalore','Karnataka',560010,'Sarjapura road',1000503),
+('Cheannai','Tamil nadu',634102,'pallapam road',1000504),
+('Hydrabad','Telangana',324150,'jain road',1000505),
+('gopali','goa',432131,'baga road',1000506),
+('hassan','karnataka',577168,'managlore road',1000507),
+('Pune',' Maharashtra',411029,'Warje Malawad road',1000508),
+('Hyderabad',' Andra Pradesh',500025,'Behind Sangeet Theatre road',1000509),
+('Jaipur','Rajasthan',302001,'Vaishali nagar road',10005010);
+
+================================================================================
+INSERT INTO `bank_app`.`password_details`
+(`login_password_creation_date_time`,
+`new_login_password`,
+`new_transaction_password`,
+`old_login_password`,
+`old_transaction_password`,
+`transaction_password_creation_date_time`,
+`account_num`,
+`cust_id`)
 VALUES
-(
-'Koramangala',
-'SCIN1100421',
-'Standard Chartered Bank',
-'20000'
-);
+(CURRENT_TIMESTAMP,'Darran@1234','Darran@1234','Darran@1234','Darran@1234',CURRENT_TIMESTAMP,2001,1000501),
+(CURRENT_TIMESTAMP,'Swathi@1234','Swathi@1234','Swathi@1234','Swathi@1234',CURRENT_TIMESTAMP,2002,1000502),
+(CURRENT_TIMESTAMP,'Shubham@1234','Shubham@1234','Shubham@1234','Shubham@1234',CURRENT_TIMESTAMP,3001,1000503),
+(CURRENT_TIMESTAMP,'Sarun@1234','Sarun@1234','Sarun@1234','Sarun@1234',CURRENT_TIMESTAMP,5342,1000504),
+(CURRENT_TIMESTAMP,'Rupesh@1234','Rupesh@1234','Rupesh@1234','Rupesh@1234',CURRENT_TIMESTAMP,2524,1000505),
+(CURRENT_TIMESTAMP,'Praveen@1234','Praveen@1234','Praveen@1234','Praveen@1234',CURRENT_TIMESTAMP,3432,1000506),
+(CURRENT_TIMESTAMP,'Seema@1234','Seema@1234','Seema@1234','Seema@1234',CURRENT_TIMESTAMP,5472,1000507),
+(CURRENT_TIMESTAMP,'Tiwari@1234','Tiwari@1234','Tiwari@1234','Tiwari@1234',CURRENT_TIMESTAMP,3632,1000508),
+(CURRENT_TIMESTAMP,'Pallavi@1234','Pallavi@1234','Pallavi@1234','Pallavi@1234',CURRENT_TIMESTAMP,3722,1000509),
+(CURRENT_TIMESTAMP,'Kishor@1234','Kishor@1234','Kishor@1234','Kishor@1234',CURRENT_TIMESTAMP,2636,1000509);
+===================================================================================
+INSERT INTO `bank_app`.`transaction_details`
+(`ifsc`,
+`reference_no`,
+`transaction_date_time`,
+`transaction_type`,
+`account_num`,
+`bank_id`)
+VALUES
+('ICIC0000570','ABC123',CURRENT_TIMESTAMP,'CREDIT',2001,1,100000.0),
+('ICIC0000572','ABC123',CURRENT_TIMESTAMP,'DEBIT',2002,2,200000.0);
+
+
+=============================================================
+
