@@ -11,8 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import org.hibernate.annotations.CreationTimestamp;
 
 import com.legato.utility.AccountType;
 
@@ -33,7 +33,7 @@ public class Account {
 	
 	private String transactionPassword;
 	
-	@CreationTimestamp
+	@UpdateTimestamp
 	private Timestamp createdDateTime;
 	
 	private Double transferLimit;
@@ -64,7 +64,12 @@ public class Account {
 		this.minimumBalance = minimumBalance;
 		this.availableBalance = availableBalance;
 	}
+	
 
+	public Customer getCustomer() {
+		return customer;
+	}
+	
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
