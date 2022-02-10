@@ -1,10 +1,10 @@
 
-====================================================================================
 create database bank_app;
 use bank_app;
 
 
-====================================================================================
+
+
 
 INSERT INTO `bank_app`.`bank`
 (
@@ -19,7 +19,6 @@ VALUES
 ('Indirapuram','AXIS000012','Axis Bank',13200),
 ('Koramangala','SCIN1100421','Standard Chartered Bank',20000);
 
-====================================================================================
 INSERT INTO `bank_app`.`customer`
 (`cust_id`,`age`,
 `cust_name`,
@@ -36,7 +35,8 @@ VALUES
 (1000508,21,'Tiwari','Tiwari@1234',3),
 (1000509,26,'Pallavi Desai','Pallavi@1234',4),
 (10005010,31,'Kishor Kumar','Kishor@1234',1);
-====================================================================================
+
+
 INSERT INTO `bank_app`.`account`
 (`account_num`,
 `acc_type`,
@@ -60,7 +60,6 @@ VALUES
 (2636,'SAVINGS',1211,CURRENT_TIMESTAMP,'ICIC0000570',1000,'Kishor@1234',10000,10005010);
 
 
-====================================================================================
 
 INSERT INTO `bank_app`.`address`
 (
@@ -81,7 +80,6 @@ VALUES
 ('Hyderabad',' Andra Pradesh',500025,'Behind Sangeet Theatre road',1000509),
 ('Jaipur','Rajasthan',302001,'Vaishali nagar road',10005010);
 
-================================================================================
 INSERT INTO `bank_app`.`password_details`
 (`login_password_creation_date_time`,
 `new_login_password`,
@@ -102,18 +100,20 @@ VALUES
 (CURRENT_TIMESTAMP,'Tiwari@1234','Tiwari@1234','Tiwari@1234','Tiwari@1234',CURRENT_TIMESTAMP,3632,1000508),
 (CURRENT_TIMESTAMP,'Pallavi@1234','Pallavi@1234','Pallavi@1234','Pallavi@1234',CURRENT_TIMESTAMP,3722,1000509),
 (CURRENT_TIMESTAMP,'Kishor@1234','Kishor@1234','Kishor@1234','Kishor@1234',CURRENT_TIMESTAMP,2636,1000509);
-===================================================================================
+
+
 INSERT INTO `bank_app`.`transaction_details`
 (`ifsc`,
 `reference_no`,
 `transaction_date_time`,
 `transaction_type`,
 `account_num`,
-`bank_id`)
+`bank_id`,
+`amount`)
 VALUES
-('ICIC0000570','ABC123',CURRENT_TIMESTAMP,'CREDIT',2001,1),
-('ICIC0000572','ABC123',CURRENT_TIMESTAMP,'DEBIT',2002,2);
+('ICIC0000570','ABC123',CURRENT_TIMESTAMP,'CREDIT',2001,1,100000.0),
+('ICIC0000572','ABC123',CURRENT_TIMESTAMP,'DEBIT',2002,2,200000.0);
 
 
-=============================================================
+
 

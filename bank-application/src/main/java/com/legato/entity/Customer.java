@@ -70,6 +70,12 @@ public class Customer {
 	public Long getCustId() {
 		return custId;
 	}
+
+	@Override
+	public String toString() {
+		return "Customer [custId=" + custId + ", custName=" + custName + ", age=" + age + ", custPassword="
+				+ custPassword + ", bank=" + bank + "]";
+	}
 	
 
 	
