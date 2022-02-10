@@ -1,15 +1,13 @@
 package com.legato.dto;
 
-import org.springframework.http.HttpStatus;
-
 public class Response {
 	
-	private HttpStatus statusCode;
+	private Integer statusCode;
 	String message;
-	public HttpStatus getStatusCode() {
+	public Integer getStatusCode() {
 		return statusCode;
 	}
-	public void setStatusCode(HttpStatus statusCode) {
+	public void setStatusCode(Integer statusCode) {
 		this.statusCode = statusCode;
 	}
 	public String getMessage() {
@@ -18,5 +16,15 @@ public class Response {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public Response(Integer statusCode, String message) {
+		super();
+		this.statusCode = statusCode;
+		this.message = message;
+	}
+	public Response() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 
 }

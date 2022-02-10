@@ -1,5 +1,6 @@
 package com.legato.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class PasswordDetails {
@@ -27,41 +30,25 @@ public class PasswordDetails {
 	@JoinColumn(name = "accountNum", referencedColumnName = "accountNum")
 	private Account account;
 	
-	private Long oldLoginPassword;
+	private String oldLoginPassword;
 	
-	private Long newLoginPassword;
+	private String newLoginPassword;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date loginPasswordCreationDateTime;
+	@CreationTimestamp
+	private Timestamp loginPasswordCreationDateTime;
 
-	private Long oldTransactionPassword;
+	private String oldTransactionPassword;
 	
-	private Long newTransactionPassword;
+	private String newTransactionPassword;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date transactionPasswordCreationDateTime;
+	@CreationTimestamp
+	private Timestamp transactionPasswordCreationDateTime;
 
 	
 	public PasswordDetails() {
 		super();
 	}
 	
-
-	public PasswordDetails(Customer customer, Account account, Long oldLoginPassword, Long newLoginPassword,
-			Date loginPasswordCreationDateTime, Long oldTransactionPassword, Long newTransactionPassword,
-			Date transactionPasswordCreationDateTime) {
-		super();
-		this.customer = customer;
-		this.account = account;
-		this.oldLoginPassword = oldLoginPassword;
-		this.newLoginPassword = newLoginPassword;
-		this.loginPasswordCreationDateTime = loginPasswordCreationDateTime;
-		this.oldTransactionPassword = oldTransactionPassword;
-		this.newTransactionPassword = newTransactionPassword;
-		this.transactionPasswordCreationDateTime = transactionPasswordCreationDateTime;
-	}
-
-
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -78,51 +65,51 @@ public class PasswordDetails {
 		this.account = account;
 	}
 
-	public Long getOldLoginPassword() {
+	public String getOldLoginPassword() {
 		return oldLoginPassword;
 	}
 
-	public void setOldLoginPassword(Long oldLoginPassword) {
+	public void setOldLoginPassword(String oldLoginPassword) {
 		this.oldLoginPassword = oldLoginPassword;
 	}
 
-	public Long getNewLoginPassword() {
+	public String getNewLoginPassword() {
 		return newLoginPassword;
 	}
 
-	public void setNewLoginPassword(Long newLoginPassword) {
+	public void setNewLoginPassword(String newLoginPassword) {
 		this.newLoginPassword = newLoginPassword;
 	}
 
-	public Date getLoginPasswordCreationDateTime() {
+	public Timestamp getLoginPasswordCreationDateTime() {
 		return loginPasswordCreationDateTime;
 	}
 
-	public void setLoginPasswordCreationDateTime(Date loginPasswordCreationDateTime) {
+	public void setLoginPasswordCreationDateTime(Timestamp loginPasswordCreationDateTime) {
 		this.loginPasswordCreationDateTime = loginPasswordCreationDateTime;
 	}
 
-	public Long getOldTransactionPassword() {
+	public String getOldTransactionPassword() {
 		return oldTransactionPassword;
 	}
 
-	public void setOldTransactionPassword(Long oldTransactionPassword) {
+	public void setOldTransactionPassword(String oldTransactionPassword) {
 		this.oldTransactionPassword = oldTransactionPassword;
 	}
 
-	public Long getNewTransactionPassword() {
+	public String getNewTransactionPassword() {
 		return newTransactionPassword;
 	}
 
-	public void setNewTransactionPassword(Long newTransactionPassword) {
+	public void setNewTransactionPassword(String newTransactionPassword) {
 		this.newTransactionPassword = newTransactionPassword;
 	}
 
-	public Date getTransactionPasswordCreationDateTime() {
+	public Timestamp getTransactionPasswordCreationDateTime() {
 		return transactionPasswordCreationDateTime;
 	}
 
-	public void setTransactionPasswordCreationDateTime(Date transactionPasswordCreationDateTime) {
+	public void setTransactionPasswordCreationDateTime(Timestamp transactionPasswordCreationDateTime) {
 		this.transactionPasswordCreationDateTime = transactionPasswordCreationDateTime;
 	}
 
@@ -137,6 +124,20 @@ public class PasswordDetails {
 				+ ", loginPasswordCreationDateTime=" + loginPasswordCreationDateTime + ", oldTransactionPassword="
 				+ oldTransactionPassword + ", newTransactionPassword=" + newTransactionPassword
 				+ ", transactionPasswordCreationDateTime=" + transactionPasswordCreationDateTime + "]";
+	}
+
+	public PasswordDetails(Customer customer, Account account, String oldLoginPassword, String newLoginPassword,
+			Timestamp loginPasswordCreationDateTime, String oldTransactionPassword, String newTransactionPassword,
+			Timestamp transactionPasswordCreationDateTime) {
+		super();
+		this.customer = customer;
+		this.account = account;
+		this.oldLoginPassword = oldLoginPassword;
+		this.newLoginPassword = newLoginPassword;
+		this.loginPasswordCreationDateTime = loginPasswordCreationDateTime;
+		this.oldTransactionPassword = oldTransactionPassword;
+		this.newTransactionPassword = newTransactionPassword;
+		this.transactionPasswordCreationDateTime = transactionPasswordCreationDateTime;
 	}
 	
 	
