@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import com.legato.dto.AccountDetailResponseDTO;
 import com.legato.dto.TransactionRequestDTO;
 import com.legato.dto.TransactionResponseDTO;
 import com.legato.exception.BankException;
@@ -14,4 +15,5 @@ public interface AccountService {
 	
 	public ByteArrayInputStream transToExcel(TransactionRequestDTO request) throws IOException,BankException;
 
+	public AccountDetailResponseDTO getAccountDetail(Long l) throws BankException;
 }

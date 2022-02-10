@@ -10,4 +10,7 @@ import com.legato.entity.Account;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 	@Query("select u from Account u where u.customer.custId = :custId")
 	public Account getAccountByCustId(Long custId);
+	
+
+	
 }

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,10 +16,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.legato.dto.AccountDetailResponseDTO;
 import com.legato.dto.TransactionRequestDTO;
 import com.legato.dto.TransactionResponseDTO;
+import com.legato.entity.Account;
+import com.legato.entity.Customer;
 import com.legato.entity.TransactionDetails;
 import com.legato.exception.BankException;
+import com.legato.repository.AccountRepository;
+import com.legato.repository.CustomerRepository;
 import com.legato.repository.TransactionDetailsRepository;
 
 @Service
@@ -26,6 +32,12 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private TransactionDetailsRepository repository;
+	
+	@Autowired
+	private AccountRepository accrepository;
+	
+	@Autowired
+	private CustomerRepository custrepository;
 	
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 	static String[] HEADERs = {"Transaction Id", "Reference No.","Account No.","Transaction Type","Amount","Date","IFSC" };
@@ -99,13 +111,13 @@ public class AccountServiceImpl implements AccountService {
 	      
 	      for (TransactionResponseDTO trans : transaction) {
 	        Row row = sheet.createRow(rowIdx++);
-	        row.createCell(0).setCellValue(trans.getTransactionId());
-	        row.createCell(1).setCellValue(trans.getReferenceNo());
-	        row.createCell(2).setCellValue(trans.getAccountNum());
-	        row.createCell(3).setCellValue(trans.getTransactionType().toString());
-	        row.createCell(4).setCellValue(trans.getAmount());
-	        row.createCell(5).setCellValue(trans.getTransactionDateTime());
-	        row.createCell(6).setCellValue(trans.getIfsc());
+	        row.createCell(0).setCellValue(Objects.isNull(trans.getTransactionId())? "":trans.getTransactionId().toString());
+	        row.createCell(1).setCellValue(Objects.isNull(trans.getReferenceNo())?"":trans.getReferenceNo());
+	        row.createCell(2).setCellValue(Objects.isNull(trans.getAccountNum())?"":trans.getAccountNum().toString());
+	        row.createCell(3).setCellValue(Objects.isNull(trans.getTransactionType())?"":trans.getTransactionType().toString());
+	        row.createCell(4).setCellValue(Objects.isNull(trans.getAmount())?"":trans.getAmount().toString());
+	        row.createCell(5).setCellValue(Objects.isNull(trans.getTransactionDateTime())?"":trans.getTransactionDateTime().toString());
+	        row.createCell(6).setCellValue(Objects.isNull(trans.getIfsc())?"":trans.getIfsc());
 	      }
 	      workbook.write(out);
 	      return new ByteArrayInputStream(out.toByteArray());
@@ -114,5 +126,20 @@ public class AccountServiceImpl implements AccountService {
 	    }
 	  }
 
+	@Override
+	public AccountDetailResponseDTO getAccountDetail(Long l) throws BankException {
+		
+		
+		AccountDetailResponseDTO accountDetailResponseDTO = null;
+		
+		Optional<Customer> customerOptional= custrepository.findById(l);
+		Customer c= customerOptional.get();
+		
+		
+		Account account= accrepository.getAccountByCustId(l);
+		
+		
+		return new AccountDetailResponseDTO(c.getCustName(), account.getAccountNum(), account.getAccType().toString(), account.getAvailableBalance());
+	}
 
 }

@@ -108,6 +108,7 @@ public class TransactionServiceImpl implements TransactionService {
 			debitDetails.setReferenceNo(referenceNo);
 			debitDetails.setTransactionType(TransactionType.DEBIT);
 			debitDetails.setBank(debitBank);
+			debitDetails.setAmount(amount);
 			transactionDetailsRepository.save(debitDetails);
 			
 			//CREDIT
@@ -119,6 +120,7 @@ public class TransactionServiceImpl implements TransactionService {
 			creditDetails.setIfsc(transDto.getIfsc());
 			creditDetails.setReferenceNo(referenceNo);
 			creditDetails.setTransactionType(TransactionType.CREDIT);
+			creditDetails.setAmount(amount);
 			transactionDetailsRepository.save(creditDetails);
 			return new Response(200, "!! Transfer Completed Successfully !!");
 		} else {
