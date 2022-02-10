@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.legato.utility.TransactionType;
 
@@ -34,7 +35,7 @@ public class TransactionDetails {
 	@Enumerated(EnumType.STRING)
 	private TransactionType transactionType;
 	
-	@CreationTimestamp
+	@UpdateTimestamp
 	private Timestamp transactionDateTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
