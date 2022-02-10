@@ -1,7 +1,6 @@
 package com.legato.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
