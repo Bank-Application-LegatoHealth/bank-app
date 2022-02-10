@@ -24,13 +24,6 @@ public class TransactionResponseDTO {
 		super();
 	}
 
-	public TransactionResponseDTO(Long transactionId, String referenceNo, Long accountNum) {
-		super();
-		this.transactionId = transactionId;
-		this.referenceNo = referenceNo;
-		this.accountNum = accountNum;
-	}
-
 	public TransactionResponseDTO(Long transactionId, String referenceNo, Long accountNum,
 			TransactionType transactionType, Double amount, Date date, String ifsc) {
 		
