@@ -1,0 +1,73 @@
+// Bank Insert queries
+
+create database bank_app;
+use bank_app;
+
+INSERT INTO `bank_app`.`bank`
+(
+`branch`,
+`ifsc`,
+`name`,
+`no_of_customers`)
+VALUES
+(
+'Hinjewadi Phase 1',
+'ICIC0000570',
+'ICICI Bank Ltd',
+10000
+);
+
+INSERT INTO `bank_app`.`bank`
+(
+`branch`,
+`ifsc`,
+`name`,
+`no_of_customers`)
+VALUES
+(
+'Hinjewadi Phase 2',
+'ICIC0000572',
+'ICICI Bank Ltd',
+10500
+);
+
+INSERT INTO `bank_app`.`bank`
+(
+`branch`,
+`ifsc`,
+`name`,
+`no_of_customers`)
+VALUES
+(
+'Sarjapur road',
+'SBIN0000110',
+'State Bank Of India',
+100200
+);
+
+INSERT INTO `bank_app`.`bank`
+(
+`branch`,
+`ifsc`,
+`name`,
+`no_of_customers`)
+VALUES
+(
+'Indirapuram',
+'AXIS000012',
+'Axis Bank',
+13200
+);
+INSERT INTO `bank_app`.`bank`
+(
+`branch`,
+`ifsc`,
+`name`,
+`no_of_customers`)
+VALUES
+(
+'Koramangala',
+'SCIN1100421',
+'Standard Chartered Bank',
+'20000'
+);

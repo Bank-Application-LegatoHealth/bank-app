@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.legato.utility.AccountType;
 
@@ -27,14 +31,15 @@ public class Account {
 	@JoinColumn(name = "custId", referencedColumnName = "custId")
 	private Customer customer;
 	
+	@Enumerated(EnumType.STRING)
 	private AccountType accType;
 	
 	private String ifsc;
 	
 	private String transactionPassword;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdDateTime;
+	@CreationTimestamp
+	private Timestamp createdDateTime;
 	
 	private Double transferLimit;
 	
@@ -53,7 +58,7 @@ public class Account {
 		this.availableBalance = availableBalance;
 	}
 	public Account(Customer customer, AccountType accType, String ifsc, String transactionPassword,
-			Date createdDateTime, Double transferLimit, Double minimumBalance,Double availableBalance) {
+			Timestamp createdDateTime, Double transferLimit, Double minimumBalance,Double availableBalance) {
 		super();
 		this.customer = customer;
 		this.accType = accType;
@@ -97,7 +102,7 @@ public class Account {
 		return createdDateTime;
 	}
 
-	public void setCreatedDateTime(Date createdDateTime) {
+	public void setCreatedDateTime(Timestamp createdDateTime) {
 		this.createdDateTime = createdDateTime;
 	}
 

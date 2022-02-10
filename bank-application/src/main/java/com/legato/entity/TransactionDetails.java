@@ -1,7 +1,10 @@
 package com.legato.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.legato.utility.TransactionType;
 
@@ -26,10 +31,11 @@ public class TransactionDetails {
 	@JoinColumn(name = "accountNum", referencedColumnName = "accountNum")
 	private Account account;
 	
+	@Enumerated(EnumType.STRING)
 	private TransactionType transactionType;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date transactionDateTime;
+	@CreationTimestamp
+	private Timestamp transactionDateTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "bankId", referencedColumnName = "bankId")
@@ -42,7 +48,7 @@ public class TransactionDetails {
 	}
 
 	public TransactionDetails(String referenceNo, Account account, TransactionType transactionType,
-			Date transactionDateTime, Bank bank, String ifsc) {
+			Timestamp transactionDateTime, Bank bank, String ifsc) {
 		super();
 		this.referenceNo = referenceNo;
 		this.account = account;
@@ -80,7 +86,7 @@ public class TransactionDetails {
 		return transactionDateTime;
 	}
 
-	public void setTransactionDateTime(Date transactionDateTime) {
+	public void setTransactionDateTime(Timestamp transactionDateTime) {
 		this.transactionDateTime = transactionDateTime;
 	}
 

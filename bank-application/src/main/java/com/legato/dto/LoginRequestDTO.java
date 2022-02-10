@@ -2,10 +2,10 @@ package com.legato.dto;
 
 public class LoginRequestDTO {
 
-	private String custId;
+	private Long custId;
 	private String password;
 	
-	public LoginRequestDTO(String custId, String password) {
+	public LoginRequestDTO(Long custId, String password) {
 		super();
 		this.custId = custId;
 		this.password = password;
@@ -15,10 +15,10 @@ public class LoginRequestDTO {
 	public String toString() {
 		return "LoginRequestDTO [custId=" + custId + ", password=" + password + "]";
 	}
-	public String getCustId() {
+	public Long getCustId() {
 		return custId;
 	}
-	public void setCustId(String custId) {
+	public void setCustId(Long custId) {
 		this.custId = custId;
 	}
 	public String getPassword() {
