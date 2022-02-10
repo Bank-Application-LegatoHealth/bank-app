@@ -29,4 +29,8 @@ public class CustomerController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response(400, e.getMessage()));
 		}
 	}
+	@GetMapping(path = "/logout")
+	public ResponseEntity<Object> performLogout() {
+		return ResponseEntity.status(HttpStatus.OK).body(new Response(200,"Logged out successfully!"));
+	}
 }

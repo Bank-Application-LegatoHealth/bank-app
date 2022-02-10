@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 public class PasswordDetails {
@@ -31,14 +32,14 @@ public class PasswordDetails {
 	
 	private String newLoginPassword;
 
-	@CreationTimestamp
+	@UpdateTimestamp
 	private Timestamp loginPasswordCreationDateTime;
 
 	private String oldTransactionPassword;
 	
 	private String newTransactionPassword;
 
-	@CreationTimestamp
+	@UpdateTimestamp
 	private Timestamp transactionPasswordCreationDateTime;
 
 	
