@@ -1,0 +1,97 @@
+
+LOGIN POST API : http://localhost:8081/api/login
+Request Body :
+			{
+				"custId":1000502,
+				"password": "Swathi@fff"
+			}
+Response : 
+			{
+				"statusCode": 200,
+				"message": "Loggin successfull!"
+			}
+
+===============================================================================
+CHANGE PASSWORD POST API http://localhost:8081/api/changepassword
+Request Body :
+			{
+				"custId":1000502,
+				"newPassword": "Swathi@fff",
+				"confirmPassword": "Swathi@fff",
+				"oldPassword": "Swathi@abc",
+				"passwordType": "LOGIN"
+			}
+Response : 
+			{
+				"statusCode": 200,
+				"message": "password changed succesfully for login"
+			}
+
+
+======================================================
+LOGUT GET API http://localhost:8081/api/logout
+
+
+===================================================================================
+
+POST API FOR DOWNLAOD TRANSACTIONS IN EXCEL http://localhost:8081/api/customers/excel
+Request Body :
+			{
+			"fromDate":null,
+			"toDate":null,
+			"transType":"CREDIT",
+			"filterSet":true
+			}
+
+Response : 
+		{Excel sheet will download}
+		   
+===============================================================================
+
+POST API FOR FETCH  TRANSACTIONS  http://localhost:8081/api/showAllTransactions
+Request Body :
+			{
+			"fromDate":2020-02-09,
+			"toDate":2020-02-11,
+			"transType":null,
+			"filterSet":false
+			}
+Response : 
+[
+			{
+			"transactionId": 1,
+			"referenceNo": "ABC123",
+			"accountNum": 2001,
+			"transactionType": "CREDIT",
+			"amount": 100000.0,
+			"transactionDateTime": "2022-02-10T15:20:56.000+00:00",
+			"ifsc": "ICIC0000570"
+			},
+			{
+			"transactionId": 2,
+			"referenceNo": "ABC123",
+			"accountNum": 2002,
+			"transactionType": "DEBIT",
+			"amount": 200000.0,
+			"transactionDateTime": "2022-02-10T15:20:56.000+00:00",
+			"ifsc": "ICIC0000572"
+			}
+]
+		   
+===============================================================================
+POST API FOR TRANSFER http://localhost:8081/api/transfer
+Request Body :
+			{
+			"fromDate":2020-02-09,
+			"toDate":2020-02-11,
+			"transType":null,
+			"filterSet":false
+			}
+Response : 
+			{
+				"detAccNo" : "2524",
+				"custName" : "Rupesh",
+				"ifsc" : "ICIC0000570",
+				"amount" : "100",
+				"custId" : "10005010"
+			}
