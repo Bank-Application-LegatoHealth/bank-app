@@ -14,7 +14,7 @@ import com.legato.service.TransactionService;
 
 @RestController
 public class TransactionController {
-	
+
 	@Autowired
 	private TransactionService service;
 	

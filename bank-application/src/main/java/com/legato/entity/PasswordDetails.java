@@ -1,7 +1,6 @@
 package com.legato.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,10 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 public class PasswordDetails {
@@ -34,14 +32,14 @@ public class PasswordDetails {
 	
 	private String newLoginPassword;
 
-	@CreationTimestamp
+	@UpdateTimestamp
 	private Timestamp loginPasswordCreationDateTime;
 
 	private String oldTransactionPassword;
 	
 	private String newTransactionPassword;
 
-	@CreationTimestamp
+	@UpdateTimestamp
 	private Timestamp transactionPasswordCreationDateTime;
 
 	

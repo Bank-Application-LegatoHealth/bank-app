@@ -2,6 +2,7 @@ package com.legato.entity;
 
 import java.sql.Timestamp;
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,8 +33,8 @@ public class TransactionDetails {
 	
 	@Enumerated(EnumType.STRING)
 	private TransactionType transactionType;
-	
-	@UpdateTimestamp
+	private Double amount;
+    @UpdateTimestamp
 	private Timestamp transactionDateTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -48,16 +47,20 @@ public class TransactionDetails {
 		super();
 	}
 
-	public TransactionDetails(String referenceNo, Account account, TransactionType transactionType,
-			Timestamp transactionDateTime, Bank bank, String ifsc) {
+
+	public TransactionDetails(Long transactionId, String referenceNo, Account account, TransactionType transactionType,
+			Double amount, Timestamp transactionDateTime, Bank bank, String ifsc) {
 		super();
+		this.transactionId = transactionId;
 		this.referenceNo = referenceNo;
 		this.account = account;
 		this.transactionType = transactionType;
+		this.amount = amount;
 		this.transactionDateTime = transactionDateTime;
 		this.bank = bank;
 		this.ifsc = ifsc;
 	}
+
 
 	public String getReferenceNo() {
 		return referenceNo;
@@ -97,6 +100,15 @@ public class TransactionDetails {
 
 	public void setBank(Bank bank) {
 		this.bank = bank;
+	}
+	
+
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 	public String getIfsc() {
