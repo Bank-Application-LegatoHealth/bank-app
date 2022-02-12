@@ -15,16 +15,17 @@ import com.legato.dto.TransactionDTO;
 import com.legato.entity.Account;
 import com.legato.entity.Bank;
 import com.legato.entity.Customer;
+import com.legato.entity.PasswordDetails;
 import com.legato.entity.TransactionDetails;
 import com.legato.exception.BankException;
 import com.legato.repository.AccountRepository;
 import com.legato.repository.CustomerRepository;
+import com.legato.repository.PasswordDetailsRepository;
 import com.legato.repository.TransactionDetailsRepository;
 import com.legato.utility.TransactionType;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
-	
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -35,71 +36,87 @@ public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private TransactionDetailsRepository transactionDetailsRepository;
 
+	@Autowired
+	private PasswordDetailsRepository passwordDetailsRepository;
+
 	@Override
 	@Transactional
 	public Response saveTranscation(TransactionDTO transDto) throws BankException {
-		
+		// DEBIT DETAILS
+		Account debitAcc = null;
+		Bank debitBank = null;
+		PasswordDetails debitpasswordDetails = null;
+
+		// CREDIT DETAILS
+		Account crAcc = null;
+		Customer creditCust = null;
+		Bank creditBank = null;
+
 		if (Objects.isNull(transDto.getDetAccNo()) || Objects.isNull(transDto.getAmount())
 				|| Objects.isNull(transDto.getCustId()) || Objects.isNull(transDto.getCustName())
 				|| Objects.isNull(transDto.getIfsc())) {
 			throw new BankException(
 					"Dest Account or Customer ID Or Amount or CustomerName or IFSC should not be empty");
 		}
-		//DEBIT DETAILS
-		Account debitAcc = null;
-		Bank debitBank=null;
-		
-		//CREDIT DETAILS
-		Account crAcc = null;
-		Customer creditCust = null;
-		Bank creditBank = null;
-		
-		// Converting DTO
-		Long destAcc = Long.parseLong(transDto.getDetAccNo());
-		Long debitcustId = Long.parseLong(transDto.getCustId());
-		Double amount = Double.parseDouble(transDto.getAmount());
 
-		String referenceNo = getRandomString(15).toUpperCase();
-		System.out.println(referenceNo.toUpperCase());
-		
-		
+		Long destAcc = transDto.getDetAccNo();
+		Long debitcustId = transDto.getCustId();
+		Double amount = transDto.getAmount();
+
+		// Amount Negative Validation
+		if (amount < 0) {
+			throw new BankException("!! Amount can't be negative !!");
+		}
+
 		// DEBIT ACCOUNT Details
 		Optional<Customer> debitCust = customerRepository.findById(debitcustId);
-		if(!debitCust.isPresent()) {
+		if (!debitCust.isPresent()) {
 			throw new BankException("!! Source Customer Not Found !!");
 		}
-	    debitAcc = accountRepository.getAccountByCustId(debitcustId);
+		debitAcc = accountRepository.getAccountByCustId(debitcustId);
 		debitBank = debitCust.get().getBank();
-		
+		System.out.println("---------Fetching  Transaction Pass -----");
+		debitpasswordDetails = passwordDetailsRepository.getPasswordByCustId(debitcustId);
+		System.out.println("--------- After Fetching  Transaction Pass -----");
+		// Insufficient Balance Validation
+		if (debitAcc.getAvailableBalance() < amount) {
+			throw new BankException("!! Insufficient Balance !!");
+		}
+		System.out.println("--------- Amount Validating -----");
+
+		// Transaction Password Validation
+		if (!Objects.isNull(debitpasswordDetails)) {
+			if (!debitpasswordDetails.getNewTransactionPassword().equals(transDto.getTransPass())) {
+				throw new BankException("!! Please Enter Valid Transaction Password !!");
+			}
+		}
+
 		// CREDIT ACCOUNT Details
-		Optional<Account> creditAcc = accountRepository.findById(Long.parseLong(transDto.getDetAccNo()));
-		if(!creditAcc.isPresent()) {
+		Optional<Account> creditAcc = accountRepository.findById(destAcc);
+		if (!creditAcc.isPresent()) {
 			throw new BankException(" !! Destination Customer Not Found !! ");
 		}
 		crAcc = creditAcc.get();
 		creditCust = creditAcc.get().getCustomer();
 		creditBank = creditCust.getBank();
 
-//		// Validation Amount for Debit Account
-//		if (debitAcc.getAvailableBalance() >= amount) {
-//			debitAcc.setAvailableBalance(debitAcc.getAvailableBalance() - amount);
-//			accountRepository.save(debitAcc);
-//			TransactionDetails debitDetails = new TransactionDetails();
-//			debitDetails.setAccount(debitAcc);
-//			debitDetails.setIfsc(transDto.getIfsc());
-//			debitDetails.setReferenceNo(referenceNo);
-//			debitDetails.setTransactionType(TransactionType.DEBIT);
-//			debitDetails.setBank(debitBank);
-//			transactionDetailsRepository.save(debitDetails);
-//		} else {
-//			throw new BankException("!! Amount Validation Failed for Customer !!");
-//		}
+		// Destination Customer Validation
+		if (!crAcc.getAccountNum().equals(destAcc)) {
+			throw new BankException("!! Please Enter Valid Account Number !!");
+		}
 
-		// Validating Credit Account Details And Customer Name
-		if (crAcc.getAccountNum().equals(destAcc) && crAcc.getIfsc().equals(transDto.getIfsc())
-				&& creditCust.getCustName().equals(transDto.getCustName()) && debitAcc.getAvailableBalance() >= amount) {
-			
-			//DEBIT
+		if (!crAcc.getIfsc().equals(transDto.getIfsc())) {
+			throw new BankException("!! Please Enter Valid IFSC Code !!");
+		}
+
+		if (!creditCust.getCustName().equals(transDto.getCustName())) {
+			throw new BankException("!! Please Enter Valid Cutomer Name !!");
+		}
+
+		// Generation Reference Number
+		String referenceNo = getRandomString(15).toUpperCase();
+		try {
+			// DEBIT
 			debitAcc.setAvailableBalance(debitAcc.getAvailableBalance() - amount);
 			accountRepository.save(debitAcc);
 			TransactionDetails debitDetails = new TransactionDetails();
@@ -110,8 +127,8 @@ public class TransactionServiceImpl implements TransactionService {
 			debitDetails.setBank(debitBank);
 			debitDetails.setAmount(amount);
 			transactionDetailsRepository.save(debitDetails);
-			
-			//CREDIT
+
+			// CREDIT
 			crAcc.setAvailableBalance(crAcc.getAvailableBalance() + amount);
 			accountRepository.save(crAcc);
 			TransactionDetails creditDetails = new TransactionDetails();
@@ -122,10 +139,12 @@ public class TransactionServiceImpl implements TransactionService {
 			creditDetails.setTransactionType(TransactionType.CREDIT);
 			creditDetails.setAmount(amount);
 			transactionDetailsRepository.save(creditDetails);
+
 			return new Response(200, "!! Transfer Completed Successfully !!");
-		} else {
-			throw new BankException("!! Source Customer Amount Vaidation Failed OR Destination Customer Validation Failed  !!");
-		}	
+		} catch (Exception e) {
+			return new Response(400, "!! Transfer Failed Something went wrong !!");
+		}
+
 	}
 
 	public String getRandomString(int n) {

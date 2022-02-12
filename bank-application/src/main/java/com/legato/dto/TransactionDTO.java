@@ -1,17 +1,17 @@
 package com.legato.dto;
 
 public class TransactionDTO {
-	private String detAccNo;
+	private Long detAccNo;
 	private String custName;
 	private String ifsc;
-	private String amount;
-	private String custId;
-
+	private Double amount;
+	private Long custId;
+    private String transPass;
 	public TransactionDTO() {
 		super();
 	}
 
-	public TransactionDTO(String detAccNo, String custName, String ifsc, String amount, String custId) {
+	public TransactionDTO(Long detAccNo, String custName, String ifsc, Double amount, Long custId) {
 		super();
 		this.detAccNo = detAccNo;
 		this.custName = custName;
@@ -20,11 +20,11 @@ public class TransactionDTO {
 		this.custId = custId;
 	}
 
-	public String getDetAccNo() {
+	public Long getDetAccNo() {
 		return detAccNo;
 	}
 
-	public void setDetAccNo(String detAccNo) {
+	public void setDetAccNo(Long detAccNo) {
 		this.detAccNo = detAccNo;
 	}
 
@@ -44,20 +44,30 @@ public class TransactionDTO {
 		this.ifsc = ifsc;
 	}
 
-	public String getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
-	public String getCustId() {
+	public Long getCustId() {
 		return custId;
 	}
 
-	public void setCustId(String custId) {
+	public void setCustId(Long custId) {
 		this.custId = custId;
+	}
+	
+	
+
+	public String getTransPass() {
+		return transPass;
+	}
+
+	public void setTransPass(String transPass) {
+		this.transPass = transPass;
 	}
 
 	@Override
