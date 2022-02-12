@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,12 +15,13 @@ import com.legato.exception.BankException;
 import com.legato.service.PasswordService;
 
 @RestController
+@CrossOrigin
 public class PasswordController {
 
 	@Autowired
 	private PasswordService passwordService;
 
-	@PostMapping(path = "/changepassword", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/changePassword", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> changePassword(@RequestBody ChangePasswordRequestDTO changePasswordRequestDTO) {
 
 		try {
