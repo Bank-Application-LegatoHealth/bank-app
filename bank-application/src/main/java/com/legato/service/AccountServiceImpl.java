@@ -3,6 +3,7 @@ package com.legato.service;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -73,9 +74,19 @@ public class AccountServiceImpl implements AccountService {
 
 		for (TransactionDetails transactions : allTransactions) {
 
-			transList.add(new TransactionResponseDTO(transactions.getTransactionId(), transactions.getReferenceNo(),
-					transactions.getAccount().getAccountNum(), transactions.getTransactionType(),
-					transactions.getAmount(), transactions.getTransactionDateTime(), transactions.getIfsc()));
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyy-MMM-dd");
+			
+				System.out.println("Date: "+sdf.format(transactions.getTransactionDateTime()));
+			
+			transList.add(new TransactionResponseDTO(transactions.getTransactionId(),
+					transactions.getReferenceNo(),
+					transactions.getAccount().getAccountNum(),
+					transactions.getTransactionType(),
+					transactions.getAmount(),
+					sdf.format(transactions.getTransactionDateTime()).toString(),
+					transactions.getIfsc()));
+
 		}
 
 		return transList;

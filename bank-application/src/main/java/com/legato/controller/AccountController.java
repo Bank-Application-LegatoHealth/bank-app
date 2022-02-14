@@ -50,7 +50,8 @@ public class AccountController {
 			file = new InputStreamResource(service.transToExcel(request));
 			return ResponseEntity.ok()
 			        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
-			        .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+			        .contentType(new MediaType("application", "octet-stream"))
+//			        .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
 			        .body(file);
 		} catch (IOException | BankException e) {
 			e.printStackTrace();
