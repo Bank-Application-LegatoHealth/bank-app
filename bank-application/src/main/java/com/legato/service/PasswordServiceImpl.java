@@ -45,6 +45,8 @@ public class PasswordServiceImpl implements PasswordService {
 				}
 				passwordDetails.setOldTransactionPassword(passwordDetails.getNewTransactionPassword());
 				passwordDetails.setNewTransactionPassword(changePasswordRequestDTO.getNewPassword());
+				account.setTransactionPassword(changePasswordRequestDTO.getNewPassword());
+				accountRepository.save(account);
 			}
 			if (changePasswordRequestDTO.getPasswordType().equals(PasswordType.LOGIN)) {
 				if (!passwordDetails.getNewLoginPassword().equals(changePasswordRequestDTO.getOldPassword())) {
@@ -75,10 +77,7 @@ public class PasswordServiceImpl implements PasswordService {
 			throw new BankException(" new password and confirm password should be same");
 		}
 		Account account = accountRepository.getAccountByCustId(changePasswordRequestDTO.getCustId());
-		if (Objects.nonNull(account)){
-			throw new BankException("customer id is invalid");
-		}
-		
+	
 		if (Objects.isNull(account)) {
 			throw new BankException("customer not found");
 		}
