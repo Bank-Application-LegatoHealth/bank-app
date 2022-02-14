@@ -1,8 +1,5 @@
 package com.legato.dto;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import com.legato.utility.TransactionType;
 public class TransactionResponseDTO {
 
@@ -16,7 +13,7 @@ public class TransactionResponseDTO {
 	
 	private Double amount;
 	
-	private Date transactionDateTime;
+	private String transactionDateTime;
 	
 	private String ifsc;
 
@@ -25,7 +22,7 @@ public class TransactionResponseDTO {
 	}
 
 	public TransactionResponseDTO(Long transactionId, String referenceNo, Long accountNum,
-			TransactionType transactionType, Double amount, Date date, String ifsc) {
+			TransactionType transactionType, Double amount, String date, String ifsc) {
 		
 		this.transactionId = transactionId;
 		this.referenceNo = referenceNo;
@@ -76,11 +73,11 @@ public class TransactionResponseDTO {
 		this.amount = amount;
 	}
 
-	public Date getTransactionDateTime() {
+	public String getTransactionDateTime() {
 		return transactionDateTime;
 	}
 
-	public void setTransactionDateTime(Timestamp transactionDateTime) {
+	public void setTransactionDateTime(String transactionDateTime) {
 		this.transactionDateTime = transactionDateTime;
 	}
 
